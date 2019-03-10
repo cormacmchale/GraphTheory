@@ -9,28 +9,37 @@ def shunt(infix):
     stack=""
 
     for c in infix:
+        #always push ( to the stack
         if c == '(':
             stack=stack+c
-            print("Debug")
+        #when you encounter a (
         elif c ==')':
+            #while the lase character in the stack is not (
             while stack[-1]!='(':
-                postfix= postfix+stack[-1]
-                stack = stack[:-1]
-            stack = stack[-1]
-        elif c in specials:
-            while stack and specials.get(c,0) <= specials.get(stack[-1],0):
-                postfix= postfix+stack[-1]
-                stack = stack[-1]
+                #postfix gets the character
+                #stack shortens to stack[:-1]
+                postfix , stack = postfix + stack[-1], stack[:-1]
+            #finally also remove the ( when you exit the while loop
             stack = stack[:-1]
+        #when you encounter a special character (see dictionary)
+        elif c in specials:
+            #while you have things on the stack and the precednce of the current character is less then the thing on the end of the stack
+            #add this to the postfix
+            #if not a special character, return zero
+            while stack and specials.get(c,0) <= specials.get(stack[-1],0):
+                postfix , stack = postfix + stack[-1], stack[:-1]
             stack = stack + c
+        #regular characters
         else:
             postfix= postfix+c
 
-    #while stack:
-        #postfix= postfix+stack[-1]
-        #stack = stack[-1]
-        #stack = stack[:-1]
+    #anything left on the stack should be added to the postfix
+    while stack:
+        postfix , stack = postfix + stack[-1], stack[:-1]
 
+    #should be empty
+    print(stack)
+    #return expression in postfix notation
     return postfix
-
+#validation
 print(shunt("(a.b)|(c*.d)"))
