@@ -38,8 +38,9 @@ def shunt(infix):
         postfix , stack = postfix + stack[-1], stack[:-1]
 
     #should be empty
-    print(stack)
+    #print(stack)
     #return expression in postfix notation
+    print (postfix)
     return postfix
 #validation
-print(shunt("(a.b)|(c*.d)"))
+#print(shunt("(a.a)*"))

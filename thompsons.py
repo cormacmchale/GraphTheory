@@ -1,6 +1,8 @@
 #Author - Cormac McHale
 #G00262708- Graph Theory Project/Assignment
 #Program that creates NFA's from regular expressions. (hopefully)
+
+#imports
 from shunt import shunt
 
 class state:
@@ -62,7 +64,7 @@ def compile(postfix):
             nfastack.append(nfa(initial,accept))
     #return the final NFA which is the only thing in the array
     return nfastack.pop()
-
-print(compile(shunt("(a.b)|(c*.d)")))  
+#testing
+#print(compile(shunt("(a.a)*")))
    
 
