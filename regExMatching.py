@@ -6,24 +6,49 @@
 from shunt import shunt
 from thompsons import compile, state, nfa
 
-def follows(state):
+#Follow all empty string paths and keep track of the states reached
+def followE(state):
     states = {state}
-
+    #check for E arrows 'empty string'
     if state.label is None:
-        
-        states |= follows(state.edge1)
-
-        states |= follows(state.edge2)
-    
+        #follow the edges from the accept empty string
+        if state.edge1 is not None:       
+            states |= followE(state.edge1)
+        if state.edge2 is not None:
+            states |= followE(state.edge2)
+    #return all states you are now in the automaton
     return states
 
-#testing
-nfa = compile(shunt("(a.a)*"))
-#print(nfa)
-current = set()
-nexts = set()
+#Expression matching function
+def match(infix, string):
+    postfix = shunt(infix)
+    nfa = compile(postfix)
+    #print(nfa)
+    
+    #these will keep track of the current set of state and the next set of states to determine if string is in except state
+    currentState = set()
+    nextState = set()
 
-for s in string:
+    #initilise current state
+    currentState |= followE(nfa.initial)
 
-    for c in current:
-        next |= follows (c.edge1)
+    #for every character in the string
+    for s in string:
+        #loop through the states that you ar in
+        for c in currentState:
+            if c.label ==s:
+                nextState |= followE(c.edge1)
+    #loop through states
+    currentState = nextState
+    nextState = set()
+
+    #check for accept state in current
+    return (nfa.accept in currentState)
+
+checkString = input("Enter String to check: ") 
+
+while(checkString!= "stop"):
+    print(match("a.b.c*",checkString))
+    checkString = input("Enter String to check: ")
+
+print("Initial Basic Project implementation complete")
