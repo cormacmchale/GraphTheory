@@ -23,7 +23,7 @@ def followE(state):
 def match(infix, string):
     postfix = shunt(infix)
     nfa = compile(postfix)
-    #print(nfa)
+    print(nfa)
     
     #these will keep track of the current set of state and the next set of states to determine if string is in except state
     currentState = set()
@@ -36,11 +36,11 @@ def match(infix, string):
     for s in string:
         #loop through the states that you ar in
         for c in currentState:
-            if c.label ==s:
+            if c.label == s:
                 nextState |= followE(c.edge1)
-    #loop through states
-    currentState = nextState
-    nextState = set()
+        #loop through states
+        currentState = nextState
+        nextState = set()
 
     #check for accept state in current
     return (nfa.accept in currentState)

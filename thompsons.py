@@ -21,7 +21,6 @@ class nfa:
 def compile(postfix):
     nfastack = []
 
-
     for c in postfix:
         #when you encounter the . operator, pop the two smaller NFA's of the statck and concatenates them into one
         #by making the second nfa point towards the initial state of the first nfa that was popped off the stack
