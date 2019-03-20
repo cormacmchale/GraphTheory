@@ -40,7 +40,7 @@ def shunt(infix):
     #should be empty
     #print(stack)
     #return expression in postfix notation
-    print (postfix)
+    #print (postfix)
     return postfix
 #validation
 #print(shunt("(a.a)*"))

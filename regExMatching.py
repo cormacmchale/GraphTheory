@@ -23,7 +23,7 @@ def followE(state):
 def match(infix, string):
     postfix = shunt(infix)
     nfa = compile(postfix)
-    print(nfa)
+    #print(nfa)
     
     #these will keep track of the current set of state and the next set of states to determine if string is in except state
     currentState = set()
@@ -48,7 +48,7 @@ def match(infix, string):
 checkString = input("Enter String to check: ") 
 
 while(checkString!= "stop"):
-    print(match("a.b.c*",checkString))
+    print(match("(a.a)*",checkString))
     checkString = input("Enter String to check: ")
 
 print("Initial Basic Project implementation complete")
