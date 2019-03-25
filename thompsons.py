@@ -62,6 +62,8 @@ def compile(postfix):
             nfastack.append(nfaplus)
         #every time you read a regular character on the charcter array postfix stack then add in the accept state for 
         #reading that character in an NFA 
+        elif c == '?':
+            nfaquestion = nfastack.pop()
         else:
             accept = state()
             initial = state()
