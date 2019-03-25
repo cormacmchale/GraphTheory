@@ -55,6 +55,10 @@ def compile(postfix):
             nfastack.append(nfa(initial, accept))  
         #every time you read a regular character on the charcter array postfix stack then add in the accept state for 
         #reading that character in an NFA 
+        elif c == '+':
+            nfaplus = nfastack.pop()
+            nfaplus.accept.edge2 = nfaplus.initial
+            nfastack.append(nfaplus)
         else:
             accept = state()
             initial = state()
@@ -64,6 +68,6 @@ def compile(postfix):
     #return the final NFA which is the only thing in the array
     return nfastack.pop()
 #testing
-#print(compile(shunt("(a.a)*")))
+#print(compile(shunt("(a+.a+)*")))
    
 
