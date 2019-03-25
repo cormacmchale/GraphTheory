@@ -52,14 +52,16 @@ def compile(postfix):
             initial.edge2 = accept
             nfa1.accept.edge1 = nfa1.initial
             nfa1.accept.edge2 = accept
-            nfastack.append(nfa(initial, accept))  
-        #every time you read a regular character on the charcter array postfix stack then add in the accept state for 
-        #reading that character in an NFA 
+            nfastack.append(nfa(initial, accept))
+        #when you encounter a '+' simply make the NFA point back to itself from both edges so that you can return 
+        #for another input, this has now been error handled
         elif c == '+':
             nfaplus = nfastack.pop()
             nfaplus.accept.edge2 = nfaplus.initial
             nfaplus.accept.edge1 = nfaplus.initial
             nfastack.append(nfaplus)
+        #every time you read a regular character on the charcter array postfix stack then add in the accept state for 
+        #reading that character in an NFA 
         else:
             accept = state()
             initial = state()
