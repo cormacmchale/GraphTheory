@@ -58,6 +58,7 @@ def compile(postfix):
         elif c == '+':
             nfaplus = nfastack.pop()
             nfaplus.accept.edge2 = nfaplus.initial
+            nfaplus.accept.edge1 = nfaplus.initial
             nfastack.append(nfaplus)
         else:
             accept = state()
