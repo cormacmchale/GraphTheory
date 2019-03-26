@@ -48,7 +48,7 @@ def match(infix, string):
 checkString = input("Enter String to check: ") 
 
 while(checkString!= "stop"):
-    print(match("(b?|a+)",checkString))
+    print(match("(a.a+)*",checkString))
     checkString = input("Enter String to check: ")
 
 print("Initial Basic Project implementation complete")
