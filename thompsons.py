@@ -57,18 +57,22 @@ def compile(postfix):
         #for another input, this has now been error handled
         elif c == '+':
             nfaplus = nfastack.pop()
-            nfaplus.accept.edge2 = nfaplus.initial
+            accept = state()
+            initial = state()
+            nfaNew = nfa(initial,accept)
             nfaplus.accept.edge1 = nfaplus.initial
-            nfastack.append(nfaplus)
+            nfaplus.accept.edge2 = nfaNew.initial
+            nfaNew.initial.edge1 = nfaNew.accept
+            nfastack.append(nfa(nfaplus.initial, nfaNew.accept))
         #comments to be added
         elif c == '?':
             nfaquestion = nfastack.pop()
             initial = state()
             accept = state()
             accept = nfaquestion.accept
-            initial.edge1 = nfaquestion
+            initial.edge1 = nfaquestion.initial
             initial.edge2 = nfaquestion.accept
-            nfastack.append(nfaquestion)
+            nfastack.append(nfa(initial, accept))
         #every time you read a regular character on the charcter array postfix stack then add in the accept state for 
         #reading that character in an NFA 
         else:
