@@ -60,10 +60,17 @@ def compile(postfix):
             nfaplus.accept.edge2 = nfaplus.initial
             nfaplus.accept.edge1 = nfaplus.initial
             nfastack.append(nfaplus)
-        #every time you read a regular character on the charcter array postfix stack then add in the accept state for 
-        #reading that character in an NFA 
+        #comments to be added
         elif c == '?':
             nfaquestion = nfastack.pop()
+            initial = state()
+            accept = state()
+            accept = nfaquestion.accept
+            initial.edge1 = nfaquestion
+            initial.edge2 = nfaquestion.accept
+            nfastack.append(nfaquestion)
+        #every time you read a regular character on the charcter array postfix stack then add in the accept state for 
+        #reading that character in an NFA 
         else:
             accept = state()
             initial = state()

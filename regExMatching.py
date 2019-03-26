@@ -34,7 +34,7 @@ def match(infix, string):
 
     #for every character in the string
     for s in string:
-        #loop through the states that you ar in
+        #loop through the states that you are in
         for c in currentState:
             if c.label == s:
                 nextState |= followE(c.edge1)
@@ -48,7 +48,7 @@ def match(infix, string):
 checkString = input("Enter String to check: ") 
 
 while(checkString!= "stop"):
-    print(match("(A+.a+.B+.b+)*",checkString))
+    print(match("A?",checkString))
     checkString = input("Enter String to check: ")
 
 print("Initial Basic Project implementation complete")
