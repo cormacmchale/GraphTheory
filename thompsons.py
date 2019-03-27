@@ -54,7 +54,7 @@ def compile(postfix):
             nfa1.accept.edge2 = accept
             nfastack.append(nfa(initial, accept))
         #when you encounter a '+' simply make the NFA point back to itself from both edges so that you can return 
-        #for another input, this has now been error handled
+        #for another input, this is not the correct solution
         elif c == '+':
             nfaplus = nfastack.pop()
             accept = state()
@@ -64,7 +64,7 @@ def compile(postfix):
             nfaplus.accept.edge2 = nfaNew.initial
             nfaNew.initial.edge1 = nfaNew.accept
             nfastack.append(nfa(nfaplus.initial, nfaNew.accept))
-        #comments to be added
+        #this is not the correct solution
         elif c == '?':
             nfaquestion = nfastack.pop()
             initial = state()

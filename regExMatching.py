@@ -45,10 +45,10 @@ def match(infix, string):
     #check for accept state in current
     return (nfa.accept in currentState)
 
+expression = input("Please enter a string in infix notation to build regular expression: ")
 checkString = input("Enter String to check: ") 
-
 while(checkString!= "stop"):
-    print(match("(a?.b|c+)*",checkString))
+    print(match(expression,checkString))
     checkString = input("Enter String to check: ")
 
-print("Initial Basic Project implementation complete")
+print("Project implementation complete?")
