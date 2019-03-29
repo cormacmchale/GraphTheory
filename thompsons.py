@@ -22,6 +22,20 @@ def compile(postfix):
     nfastack = []
 
     for c in postfix:
+        #for implicit concatenation
+        #if the stack has two nfa's and you don't have a conctenate operator
+        #then concatenate the two things and go back to the operator you were on
+        if len(nfastack)==2 and (c!='|' or c!='.'):
+            nfa2 = nfastack.pop()
+            nfa1 = nfastack.pop()
+            initial = state()
+            accept = state()
+            initial.edge1 = nfa1.initial
+            initial.edge2 = nfa2.initial
+            nfa1.accept.edge1 = accept
+            nfa2.accept.edge2 = accept
+            nfastack.append(nfa(initial,accept)) 
+            print("test")           
         #when you encounter the . operator, pop the two smaller NFA's of the statck and concatenates them into one
         #by making the second nfa point towards the initial state of the first nfa that was popped off the stack
         if c=='.':
@@ -68,11 +82,9 @@ def compile(postfix):
         elif c == '?':
             nfaquestion = nfastack.pop()
             initial = state()
-            accept = state()
-            accept = nfaquestion.accept
             initial.edge1 = nfaquestion.initial
             initial.edge2 = nfaquestion.accept
-            nfastack.append(nfa(initial, accept))
+            nfastack.append(nfa(initial, nfaquestion.accept))
         #every time you read a regular character on the charcter array postfix stack then add in the accept state for 
         #reading that character in an NFA 
         else:

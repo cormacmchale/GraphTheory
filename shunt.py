@@ -3,7 +3,7 @@
 #Program that creates NFA's from regular expressions. (hopefully)
 def shunt(infix):
 
-    specials = {'?':60,'+':55,'*':50,'.':40, '|':30}
+    specials = {'+':60,'?':45,'*':50,'.':40, '|':30}
 
     postfix=""
     stack=""
