@@ -25,17 +25,18 @@ def compile(postfix):
         #for implicit concatenation
         #if the stack has two nfa's and you don't have a conctenate operator
         #then concatenate the two things and go back to the operator you were on
-        if len(nfastack)==2 and (c!='|' or c!='.'):
-            nfa2 = nfastack.pop()
-            nfa1 = nfastack.pop()
-            initial = state()
-            accept = state()
-            initial.edge1 = nfa1.initial
-            initial.edge2 = nfa2.initial
-            nfa1.accept.edge1 = accept
-            nfa2.accept.edge2 = accept
-            nfastack.append(nfa(initial,accept)) 
-            print("test")           
+        #if len(nfastack)==2 and (c!='|' or c!='.'):
+        #leaving this out for last commit for deadline - will re-visit
+         #   nfa2 = nfastack.pop()
+         #   nfa1 = nfastack.pop()
+         #   initial = state()
+         #   accept = state()
+         #   initial.edge1 = nfa1.initial
+         #   initial.edge2 = nfa2.initial
+         #   nfa1.accept.edge1 = accept
+         #   nfa2.accept.edge2 = accept
+         #   nfastack.append(nfa(initial,accept)) 
+         #   print("test")           
         #when you encounter the . operator, pop the two smaller NFA's of the statck and concatenates them into one
         #by making the second nfa point towards the initial state of the first nfa that was popped off the stack
         if c=='.':
@@ -67,8 +68,8 @@ def compile(postfix):
             nfa1.accept.edge1 = nfa1.initial
             nfa1.accept.edge2 = accept
             nfastack.append(nfa(initial, accept))
-        #when you encounter a '+' simply make the NFA point back to itself from both edges so that you can return 
-        #for another input, this is not the correct solution
+        #when you encounter a '+' make a new NFA and make the old NFA point towards itself and the new NFA
+        #connect the new NFA to itself to accept and append an NFA with the old initial and the new accept to the stack. 
         elif c == '+':
             nfaplus = nfastack.pop()
             accept = state()
@@ -78,7 +79,8 @@ def compile(postfix):
             nfaplus.accept.edge2 = nfaNew.initial
             nfaNew.initial.edge1 = nfaNew.accept
             nfastack.append(nfa(nfaplus.initial, nfaNew.accept))
-        #this is not the correct solution
+        #pop the NFA of the stack and make a new initial state make this initial state point towards the initial and accept 
+        #state of the NFA and append an NFA with the new initial and old a`ccept to the stack
         elif c == '?':
             nfaquestion = nfastack.pop()
             initial = state()
