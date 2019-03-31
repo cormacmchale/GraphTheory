@@ -1,5 +1,5 @@
 # GraphTheory
-A Regular expression type job
+A Regular expression Matching Program - 
 Decription of the Program in terms of UI
 
 	1.Run the program from the command line - "python regExMatching.py"
